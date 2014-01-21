@@ -1,0 +1,56 @@
+﻿@model  Creatives.Models.RegisterModel
+@{  
+    ViewBag.Title = "Registration";
+}
+
+<div class="span7">
+    <div class="hero-unit" style="background-color: lavender">
+        <hgroup class="title">
+
+            <h2>Create new account</h2>
+        </hgroup>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+
+   
+            <h2>Registration form</h2>
+                    
+            <h4>FirstName :</h4>
+            
+            @Html.TextBoxFor(m => m.FirstName)
+            
+            <h4>LastName :</h4>
+              
+            @Html.TextBoxFor(m => m.LastName)
+            
+            <h4>About :</h4>
+             
+            @Html.TextAreaFor(m => m.About)
+            
+            <h4>Email :</h4>
+              
+            @Html.TextBoxFor(m => m.Email)
+            
+                
+            <h4>Password :</h4>
+            <!-- Html.LabelFor(m => m.Password) -->
+            @Html.PasswordFor(m => m.Password)
+            
+
+            <h4>Confirm Password :</h4>
+            <!--  Html.LabelFor(m => m.ConfirmPassword) -->
+            @Html.PasswordFor(m => m.ConfirmPassword)
+        
+            <input class="btn btn-large btn-success" type="submit" value="Register" /> 
+         
+        }
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
