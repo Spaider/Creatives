@@ -1,6 +1,6 @@
 ﻿using Creatives.Models;
 
-namespace Сreatives.Models
+namespace Creatives.Models
 {
     public class Picture
     {

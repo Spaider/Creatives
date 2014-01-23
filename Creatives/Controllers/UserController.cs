@@ -2,17 +2,21 @@
 using System.Web.Mvc;
 using Creatives.Models;
 
+
 namespace Creatives.Controllers
 {
     public class UserController : Controller
     {
-        //
-        // GET: /User/
+        private readonly ICreativesRepository _creativesRepository;
+
+        public UserController(ICreativesRepository creativesRepository)
+        {
+            _creativesRepository = creativesRepository;
+        }
 
         public ActionResult Index()
         {
-            
-            return View(Dal.GetUserByName(User.Identity.Name));
+            return View(_creativesRepository.GetUserByName(User.Identity.Name));
         }
 
     }

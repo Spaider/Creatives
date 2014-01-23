@@ -79,7 +79,7 @@ namespace Creatives.Controllers
             {
                 try
                 {
-                    Dal.AddUser(model);
+                    CreativesRepository.AddUser(model);
                 
 
                     return RedirectToAction("RegisterStepTwo");
