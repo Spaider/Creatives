@@ -4,6 +4,7 @@ using System.Linq;
 using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
+using Creatives.Repository;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
@@ -293,12 +294,12 @@ namespace Creatives.Controllers
                 // Добавление нового пользователя в базу данных
                 using (EntityContext db = new EntityContext())
                 {
-                    User user = db.Users.FirstOrDefault(u => u.Email.ToLower() == model.Email.ToLower());
+                    User user = db.User.FirstOrDefault(u => u.Email.ToLower() == model.Email.ToLower());
                     // Проверка наличия пользователя в базе данных
                     if (user == null)
                     {
                         // Добавление имени в таблицу профиля
-                        db.Users.Add(new User { Email = model.Email });
+                        db.User.Add(new User { Email = model.Email });
                         db.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.Email);

@@ -1,14 +1,18 @@
-﻿@if (Request.IsAuthenticated) {
-    <text>
-        Здравствуйте, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Управление" })!
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+﻿@if (Request.IsAuthenticated)
+{
+    <a href="#" data-dropdown="drop" class="button  success dropdown">@User.Identity.Name</a><br>
+    <ul id="drop" data-dropdown-content class="f-dropdown">
+        <li><a href="#">My profile</a></li>
+        <li><a href="~/Account/Manage">Change password</a></li>
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
             @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">LogOff</a></li>
         }
-    </text>
-} else {
-    <ul>
-        <li>@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Выполнить вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
+}
+else
+{
+    <li><a href="~/Account/Register" class="button alert  ">Register</a></li>
+    <li><a href="~/Account/Login" class="button [secondary success alert]">Login</a></li>
 }

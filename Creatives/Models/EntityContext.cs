@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
-
-using Creatives.Models;
 
 namespace Creatives.Models
 {
@@ -15,10 +10,11 @@ namespace Creatives.Models
             : base("EntityContext")
         {
         }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Creative> Creatives { get; set; }
-        public DbSet<Chapter> Chapters { get; set; }
-        public DbSet<Tag> Tags { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<Creative> Creative { get; set; }
+        public DbSet<Chapter> Chapter { get; set; }
+        public DbSet<Picture> Picture { get; set; } 
+        public DbSet<Tag> Tag { get; set; }
         
 
     }

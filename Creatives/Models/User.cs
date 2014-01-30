@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Creatives.Models
 {
-    [Table("Users")]
     public class User
     {
         [Key]
@@ -16,7 +15,7 @@ namespace Creatives.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string About { get; set; }
-        public virtual ICollection<Creative> Creatives { get; set; }
+        public virtual ICollection<Creative> Creative { get; set; }
  
 
 

@@ -1,0 +1,15 @@
+﻿@using System.Data.Entity.ModelConfiguration.Conventions
+
+<div class="row collapse">
+    @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { id = "searchText" }))
+    {<div class="small-10 columns">
+            <input id="tag" name="tag" type="text" value="" placeholder="Serch">
+        </div>
+            
+        <div class="small-2 columns">
+            <input class=" tiny radius round button  " type="submit" value="Go" />
+        </div>
+            
+    }
+
+</div>

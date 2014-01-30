@@ -1,0 +1,35 @@
+﻿@model Creatives.Models.Creative
+
+
+@using (Html.BeginForm(new { id = "tag"} ))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+   
+    <form>
+        <div class="row">
+            <div class="large-12 columns">
+                <label>Input Label</label>
+                <input class="text-box single-line" id="Title" name="Title" type="text" value="" placeholder="Titel">
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <label>Textarea Label</label>
+                <textarea input class="text-box single-line" id="About" name="About" type="text" value=""></textarea>
+            </div>
+        </div>
+
+        <input id="tag" name="tag" type="text" value="" placeholder="Serch">
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </form>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -39,29 +39,40 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonServiceLocator.NinjectAdapter">
+      <HintPath>C:\Users\Zwem\Downloads\Ninject-3.0.0.15-release-net-4.5\extensions\CommonServiceLocator.NinjectAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\packages\Lucene.Net.2.9.4.1\lib\net40\Lucene.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Web.Common, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Ninject.Web.Common">
       <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net45-full\Ninject.Web.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Ninject.Web.Mvc">
       <HintPath>..\packages\Ninject.MVC3.3.0.0.6\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleLucene">
+      <HintPath>..\packages\SimpleLucene.1.0.0.1\lib\4.0\SimpleLucene.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -87,8 +98,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http">
-    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -97,9 +106,6 @@
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
@@ -192,8 +198,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\NinjectWebCommon.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\ChapterController.cs" />
+    <Compile Include="Controllers\CreativeController.cs" />
+    <Compile Include="Controllers\PictureController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -208,18 +216,27 @@
     </Compile>
     <Compile Include="Models\Chapter.cs" />
     <Compile Include="Models\Creative.cs" />
-    <Compile Include="CreativesRepository.cs" />
+    <Compile Include="Repository\CreativeIndexDefinition.cs" />
+    <Compile Include="Repository\CreativeQuery.cs" />
+    <Compile Include="Repository\CreativeResultDefinition.cs" />
+    <Compile Include="Repository\CreativesRepository.cs" />
     <Compile Include="Models\EntityContext.cs" />
-    <Compile Include="ICreativesRepository.cs" />
+    <Compile Include="Repository\ICreativesRepository.cs" />
     <Compile Include="Models\Picture.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositoryModule.cs" />
+    <Compile Include="Repository\RepositoryModule.cs" />
     <Compile Include="Service\BodyEmail.cs" />
     <Compile Include="Service\Email.cs" />
+    <Compile Include="Service\ImageUpload.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="foundation\1.jpg" />
+    <Content Include="foundation\app.css" />
+    <Content Include="foundation\foundation.css" />
+    <Content Include="foundation\foundation.mvc.css" />
+    <Content Include="foundation\normalize.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -276,7 +293,23 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Foundation_readme.md" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\foundation\foundation.abide.js" />
+    <Content Include="Scripts\foundation\foundation.accordion.js" />
+    <Content Include="Scripts\foundation\foundation.alert.js" />
+    <Content Include="Scripts\foundation\foundation.clearing.js" />
+    <Content Include="Scripts\foundation\foundation.dropdown.js" />
+    <Content Include="Scripts\foundation\foundation.interchange.js" />
+    <Content Include="Scripts\foundation\foundation.joyride.js" />
+    <Content Include="Scripts\foundation\foundation.js" />
+    <Content Include="Scripts\foundation\foundation.magellan.js" />
+    <Content Include="Scripts\foundation\foundation.offcanvas.js" />
+    <Content Include="Scripts\foundation\foundation.orbit.js" />
+    <Content Include="Scripts\foundation\foundation.reveal.js" />
+    <Content Include="Scripts\foundation\foundation.tab.js" />
+    <Content Include="Scripts\foundation\foundation.tooltip.js" />
+    <Content Include="Scripts\foundation\foundation.topbar.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -300,7 +333,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
@@ -327,7 +359,6 @@
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -335,12 +366,19 @@
     <Content Include="Views\Account\ConfirmationFailure.cshtml" />
     <Content Include="Views\Account\ConfirmationSuccess.cshtml" />
     <Content Include="Views\Account\RegisterStepTwo.cshtml" />
+    <Content Include="Views\Shared\_Foundation.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_Search.cshtml" />
+    <Content Include="Views\Creative\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

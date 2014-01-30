@@ -1,4 +1,4 @@
-﻿using Creatives.Models;
+﻿using System.Collections.Generic;
 
 namespace Creatives.Models
 {
@@ -7,6 +7,8 @@ namespace Creatives.Models
         public int PictureId { get; set; }
         public string Titel { get; set; }
         public string Url { get; set; }
-        public virtual Creative Creatives { get; set; }
+        public virtual ICollection<Tag> Tag { get; set; }
+        public int CreativeId { get; set; }
+        public virtual Creative Creative { get; set; }
     }
 }

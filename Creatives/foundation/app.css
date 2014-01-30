@@ -1,0 +1,11 @@
+﻿h2  a{
+	background: url('/foundation/1.jpg') no-repeat center center fixed;
+    color: transparent;
+    display: block;
+    font: 0px/0 a;
+    height: 83px;
+    text-shadow: none;
+    width: 229px; 
+}
+footer{overflow: hidden; background: #444; padding-top: 10px; color: #bbb; }
+footer p{font-size: 12px;}

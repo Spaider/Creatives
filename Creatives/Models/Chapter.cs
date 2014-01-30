@@ -12,6 +12,7 @@ namespace Creatives.Models
         public int NumbChapter { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
+        public int CreativeId { get; set; }
         public virtual Creative Creative { get; set; }
     }
 }
