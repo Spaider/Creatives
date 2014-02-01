@@ -17,19 +17,19 @@ using WebMatrix.WebData;
 
 namespace Creatives.Repository
 {
-   
+
     public class CreativesRepository : ICreativesRepository
     {
-       
-        
+
+
         private readonly EntityContext _db;
 
         public CreativesRepository(EntityContext db)
         {
-            
+
             _db = db;
         }
-       
+
         public static void AddUser(RegisterModel model)
         {
             string confirmationToken =
@@ -62,31 +62,32 @@ namespace Creatives.Repository
             return _db.Creative.Find(id);
         }
 
-        public void AddCreatives(Creative creative)
+
+        public void AddTag(int creativeId)
         {
-            _db.Creative.Add(creative);
-            _db.SaveChanges();
 
-        }
+            var creative = GetCreativeById(creativeId);
 
-        public void AddTag(string tag, int creativeId)
-        {
-            var creative = _db.Creative.SingleOrDefault(r => r.Creativeid == creativeId);
 
-            string[] split = tag.Split(new Char[] { '#' });
+
+            string[] split = creative.Tagon.Split(new Char[] { '#', ' ', ',' });
             foreach (var s in split)
             {
-                var tag2 = _db.Tag.SingleOrDefault(r => r.Title == s);
-                if (tag2 != null)
+                if (s != "")
                 {
-                    creative.Tag.Add(tag2);
-                }
-                else
-                {
-                    _db.Tag.Add(new Tag() { Title = s });
-                    _db.SaveChanges();
-                    var tag1 = _db.Tag.Single(r => r.Title == s);
-                    creative.Tag.Add(tag1);
+                    var tag2 = _db.Tag.SingleOrDefault(r => r.Title == s);
+                    if (tag2 != null)
+                    {
+                        creative.Tag.Add(tag2);
+                    }
+                    else
+                    {
+                        _db.Tag.Add(new Tag() { Title = s });
+                        _db.SaveChanges();
+                        var tag1 = _db.Tag.Single(r => r.Title == s);
+                        creative.Tag.Add(tag1);
+
+                    }
                 }
                 _db.SaveChanges();
             }
@@ -111,7 +112,9 @@ namespace Creatives.Repository
 
         public void ModifiedChapter(Chapter chapter)
         {
-            _db.Entry(chapter).State = EntityState.Modified;
+            var chapter1 = GetChapterById(chapter.ChapterId);
+            _db.Entry(chapter1).CurrentValues.SetValues(chapter);
+            _db.SaveChanges();
         }
 
         public void AddPictures(HttpPostedFileBase fileUpload, string path, int id, string title)
@@ -134,6 +137,19 @@ namespace Creatives.Repository
         {
             return _db.Creative.OrderByDescending(r => r.DateCreate).Take(10).ToList();
         }
-   
+
+        public void ChangeOrderByChapter(int numbInt, int countInt, int id)
+        {
+            for (int i = countInt - numbInt; i >= 0; i--)
+            {
+                var creative = GetCreativeById(id);
+                var chapter = creative.Chapter.Single(r => r.NumbChapter == countInt);
+                chapter.NumbChapter++;
+                countInt--;
+                _db.SaveChanges();
+            }
+
+        }
+
     }
 }

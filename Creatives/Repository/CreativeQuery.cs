@@ -19,7 +19,7 @@ namespace Creatives.Repository
         {
             if (!string.IsNullOrEmpty(keywords))
             {
-                string[] fields = { "Name", "About" };
+                string[] fields = { "Title", "About" };
                 var parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_29,
                         fields, new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_29));
                 Query multiQuery = parser.Parse(keywords);

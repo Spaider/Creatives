@@ -10,6 +10,13 @@
 
     @Styles.Render("~/foundation/css")
 
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/foundation")
+    <script>
+        $(document).foundation();
+    </script>
+    @RenderSection("scripts", required: false)
+
     @RenderSection("head", required: false)
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -55,11 +62,5 @@
 
 
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/foundation")
-    <script>
-        $(document).foundation();
-    </script>
-   @RenderSection("scripts", required: false)
 </body>
 </html>

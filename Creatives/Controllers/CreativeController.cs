@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Creatives.Models;
 using Creatives.Repository;
 using SimpleLucene.Impl;
@@ -28,6 +29,18 @@ namespace Creatives.Controllers
             return View(creatives);
         }
 
+        public ActionResult Find(int id = 0)
+        {
+            var user = _creativesRepository.GetUserByName(User.Identity.Name);
+            var creative = _creativesRepository.GetCreativeById(id);
+            if (creative.UserId != user.UserId)
+            {
+                return HttpNotFound();
+            }
+            return View(creative);
+
+        }
+
         public ActionResult Edit(int id = 0)
         {
             var user = _creativesRepository.GetUserByName(User.Identity.Name);
@@ -39,9 +52,9 @@ namespace Creatives.Controllers
             return View(creative);
         }
         [HttpPost]
-        public ActionResult Edit(Creative creative, string tag)
+        public ActionResult Edit(Creative creative)
         {
-            _creativesRepository.AddTag(tag, creative.Creativeid);
+            _creativesRepository.AddTag(creative.Creativeid);
             _creativesRepository.ModifiedCreatives(creative);
             return View();
         }
@@ -52,14 +65,14 @@ namespace Creatives.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Creative creative, string tag)
+        public ActionResult Create(Creative creative)
         {
             if (ModelState.IsValid)
             {
                 var user = _creativesRepository.GetUserByName(User.Identity.Name);
-                creative.DateCreate=DateTime.Now;
+                creative.DateCreate = DateTime.Now;
                 creative.UserId = user.UserId;
-                _creativesRepository.AddCreatives(creative);
+                AddCreative.Add(creative);
                 var indexLocation = new FileSystemIndexLocation(new DirectoryInfo(Server.MapPath("~/Index")));
                 var definition = new CreativeIndexDefinition();
                 var task = new EntityUpdateTask<Creative>(creative, definition, indexLocation);
@@ -71,14 +84,15 @@ namespace Creatives.Controllers
                 {
                     task.Execute(indexService);
                 }
-
+                if (creative.Tagon != null)
+                {
+                    _creativesRepository.AddTag(creative.Creativeid);
+                }
+                return RedirectToAction("Add", "Chapter", new { id = creative.Creativeid });
             }
-            if (tag != null)
-            {
-                _creativesRepository.AddTag(tag, creative.Creativeid);
-            }
-            RedirectToAction("Index", "Profile");
             return View();
+
+
         }
     }
 }
