@@ -1,0 +1,33 @@
+﻿@model Creatives.Models.Creative
+
+<div class="row">
+        <div class="large-12 columns">
+            <article>
+                <h4 align="center"><b>@Html.DisplayFor(model => model.Title)</b></h4>
+                <h6>Written by <a href="~/Profile/Users/@Model.UserId"><b>@Html.DisplayFor(model => model.User.FirstName) @Html.DisplayFor(model => model.User.LastName)</b></a> @Html.DisplayFor(model => model.DateCreate)</h6>
+                <p><b> @Html.DisplayFor(model => model.About) </b></p>
+            </article>
+
+            <hr />
+        </div>
+    </div>
+
+@{
+    var a = Model.Chapter.OrderBy(r => r.NumbChapter).ToList();
+    
+}
+@foreach (var item in a)
+{
+    <div class="row">
+        <div class="large-12 columns">
+            <article>
+                <h2 align="center"> <b >@Html.DisplayFor(modelItem => item.Title)</b></h2>
+                <h5 align="justify"> <b > @Html.DisplayFor(modelItem => item.Body)</b></h5>
+                
+            </article>
+
+            <hr />
+        </div>
+    </div>
+
+}

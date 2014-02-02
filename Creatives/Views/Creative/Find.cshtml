@@ -1,5 +1,4 @@
-﻿
-@model Creatives.Models.Creative
+﻿@model Creatives.Models.Creative
 <div class="row">
     <div class="large-12 columns">
         <article>
@@ -19,6 +18,7 @@
         <ul class="button-group">
             <li><a href="~/Chapter/Add/@Model.Creativeid" class="button btn-success ">Add new chapter</a></li>
             <li><a href="~/Creative/Edit/@Model.Creativeid" class="button alert  ">Edit creative</a></li>
+            <li><a href="~/Profile/" class="button success  ">Go to the profile</a></li>
 
         </ul>
 
@@ -26,17 +26,25 @@
 </div>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script>
-  $(function() {
-      $("#sortable").sortable({
-          axis: "y",
-          update: function (event, ui) {
-              alert($( "#sortable" ).sortable( "toArray" ));
-          }
-      });
-    $( "#sortable" ).disableSelection();
-  });
-  </script>
- 
+    $(function () {
+        $("#sortable").sortable({
+            axis: "y",
+            update: function (event, ui) {
+                $.ajax({
+                    url: '/Creative/Find/',
+                    data: {id:"@Model.Creativeid",items: $("#sortable").sortable('toArray') },
+                    type: 'post',
+                    traditional: true
+                });
+            }
+        });
+        $("#sortable").disableSelection();
+    });
+
+</script>
+
+
+
 
 @{
     var a = Model.Chapter.OrderBy(r => r.NumbChapter).ToList();
@@ -48,24 +56,25 @@
             <h2>Chapters</h2>
         </legend>
         <ul id="sortable">
-        @foreach (var item in a)
-        {
-            <li class="row" id="@item.NumbChapter">
-                <div class="large-12 columns">
-                    <article>
-                        <h3><a href="~/Chapter/Edit/@item.ChapterId">
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </a></h3>
-                    </article>
+            @foreach (var item in a)
+            {
+                <li class="row" id="@item.NumbChapter">
+                    <div class="large-12 columns">
+                        <article>
+                            <h3><a href="~/Chapter/Edit/@item.ChapterId">
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </a></h3>
+                        </article>
 
-                    <hr />
-                </div>
-            </li>
+                        <hr />
+                    </div>
+                </li>
 
-        }
+            }
         </ul>
     </fieldset>
 </form>
+
 
 
 

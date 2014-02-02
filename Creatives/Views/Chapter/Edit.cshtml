@@ -31,24 +31,9 @@
   
     
     
-    <div class="editor-field">
+    
 
-        <select id="numb" type="text" name="numb">
-            <option type="text" value="0">Number chapter</option>
-            @{int i = 0;
-
-              do
-              {
-                  i++;
-                <option type="number" value="@i">@i</option>
-                
-
-              }
-              while (i < a);}
-
-        </select>
-
-    </div>
+   
     @Html.HiddenFor(model => model.ChapterId)
     @Html.HiddenFor(model => model.NumbChapter)
     @Html.HiddenFor(model => model.CreativeId)

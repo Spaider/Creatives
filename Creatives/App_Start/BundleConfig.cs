@@ -28,6 +28,9 @@ namespace Creatives.App_Start
                 "~/foundation/foundation.css",
                 "~/foundation/app.css"));
 
+            bundles.Add(new ScriptBundle("~/bundles/coffeescript").Include(
+                "~/Scripts/coffee-script.js"));
+
 
             bundles.Add(new ScriptBundle("~/bundles/foundation").Include(
                       "~/Scripts/foundation/foundation.js",

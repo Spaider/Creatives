@@ -58,9 +58,12 @@
     </div>
 
 
+    @Styles.Render("~/foundation/css")
 
-
-
-
-</body>
+    
+    @Scripts.Render("~/bundles/foundation")
+    <script>
+        $(document).foundation();
+    </script>
+    </body>
 </html>

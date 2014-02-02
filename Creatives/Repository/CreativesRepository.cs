@@ -1,10 +1,13 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.Entity;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using Creatives.Models;
 using Creatives.Repository;
@@ -33,13 +36,15 @@ namespace Creatives.Repository
         public static void AddUser(RegisterModel model)
         {
             string confirmationToken =
-                 WebSecurity.CreateUserAndAccount(model.Email, model.Password, new { FirstName = model.FirstName, LastName = model.LastName, About = model.About }, true);
+                WebSecurity.CreateUserAndAccount(model.Email, model.Password,
+                    new { FirstName = model.FirstName, LastName = model.LastName, About = model.About }, true);
             var user = model;
 
 
             BodyEmail.BodySend(user, confirmationToken);
 
         }
+
         public User GetUserByName(string name)
         {
 
@@ -67,7 +72,7 @@ namespace Creatives.Repository
         {
 
             var creative = GetCreativeById(creativeId);
-
+            creative.Tag.Clear();
 
 
             string[] split = creative.Tagon.Split(new Char[] { '#', ' ', ',' });
@@ -84,8 +89,14 @@ namespace Creatives.Repository
                     {
                         _db.Tag.Add(new Tag() { Title = s });
                         _db.SaveChanges();
-                        var tag1 = _db.Tag.Single(r => r.Title == s);
-                        creative.Tag.Add(tag1);
+
+                        var a = creative.Tag.SingleOrDefault(r => r.Title == s);
+                        if (a == null)
+                        {
+                            var tag1 = _db.Tag.Single(r => r.Title == s);
+                            creative.Tag.Add(tag1);
+                        }
+
 
                     }
                 }
@@ -101,7 +112,7 @@ namespace Creatives.Repository
 
         public void ModifiedCreatives(Creative creative)
         {
-            _db.Entry(creative).State = EntityState.Modified;
+            _db.Entry(GetCreativeById(creative.Creativeid)).CurrentValues.SetValues(creative);
             _db.SaveChanges();
         }
 
@@ -151,5 +162,33 @@ namespace Creatives.Repository
 
         }
 
+        public void ChangeNumberChapter(int[] items, int id)
+        {
+            var creative = GetCreativeById(id);
+            foreach (var number in creative.Chapter)
+            {
+                var b = number.NumbChapter;
+                for (var strNumber = 0; strNumber < items.Length; strNumber++)
+                {
+
+                    if (items[strNumber] == b)
+                    {
+                        number.NumbChapter = strNumber++;
+                        _db.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        public IQueryable<User> AllIncluding(params Expression<Func<User, object>>[] includeProperties)
+        {
+            IQueryable<User> query = _db.User;
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+            return query;
+
+        }
     }
 }

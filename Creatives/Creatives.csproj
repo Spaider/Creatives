@@ -45,8 +45,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="Lucene.Net">
-      <HintPath>..\packages\Lucene.Net.2.9.4.1\lib\net40\Lucene.Net.dll</HintPath>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
     </Reference>
     <Reference Include="MarkdownDeep">
       <HintPath>..\packages\MarkdownDeep.Full.1.5\lib\.NetFramework 3.5\MarkdownDeep.dll</HintPath>
@@ -225,9 +226,9 @@
     </Compile>
     <Compile Include="Models\Chapter.cs" />
     <Compile Include="Models\Creative.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Repository\AddCreative.cs" />
     <Compile Include="Repository\CreativeIndexDefinition.cs" />
-    <Compile Include="Repository\CreativeQuery.cs" />
     <Compile Include="Repository\CreativeResultDefinition.cs" />
     <Compile Include="Repository\CreativesRepository.cs" />
     <Compile Include="Models\EntityContext.cs" />
@@ -305,6 +306,7 @@
     <Content Include="Global.asax" />
     <Content Include="Foundation_readme.md" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\coffee-script.js" />
     <Content Include="Scripts\foundation\foundation.abide.js" />
     <Content Include="Scripts\foundation\foundation.accordion.js" />
     <Content Include="Scripts\foundation\foundation.alert.js" />
@@ -397,6 +399,12 @@
     <Content Include="Views\Admin\Delete.cshtml" />
     <Content Include="Views\Creative\Find.cshtml" />
     <Content Include="Views\Chapter\Edit.cshtml" />
+    <Content Include="Views\Creative\Edit.cshtml" />
+    <Content Include="Views\Creative\Read.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Profile\Users.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

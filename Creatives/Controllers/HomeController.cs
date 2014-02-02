@@ -14,30 +14,34 @@ namespace Creatives.Controllers
     {
 
         private readonly ICreativesRepository _creativesRepository;
+        User curemtuser;
 
         public HomeController(ICreativesRepository creativesRepository)
         {
             _creativesRepository = creativesRepository;
+            
         }
         public ActionResult Index()
         {
-
-
-            return View(
-                _creativesRepository.GetTenLastCreatives()
-                );
+            return View(_creativesRepository.GetTenLastCreatives());
         }
+        [HttpPost]
         public ActionResult Search(string searchText)
         {
-            string IndexPath = Server.MapPath("~/Index");
-            var indexSearcher = new DirectoryIndexSearcher(new DirectoryInfo(IndexPath), true);
-            using (var searchService = new SearchService(indexSearcher))
+            if (string.IsNullOrEmpty(searchText) || searchText == ":")
             {
-                var query = new CreativeQuery().WithKeywords(searchText);
-                var result = searchService.SearchIndex<Creative>(query.Query, new CreativeResultDefinition());
-                
-                return View(result.Results.ToList());
+                searchText = "empty";
             }
+           //user = _creativesRepository.AllIncluding(user => user.Creative).FirstOrDefault(user => user.Email == User.Identity.Name);
+
+            string IndexPath = Server.MapPath("~/Index");
+
+            List<Creative> events = CreativeIndexDefinition.SearchCreatives(IndexPath, searchText, _creativesRepository);
+
+
+
+
+            return View(events);
         }
     }
 }

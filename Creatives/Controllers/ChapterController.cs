@@ -43,12 +43,15 @@ namespace Creatives.Controllers
                 if (numbInt <= countInt)
                 {
                     _creativesRepository.ChangeOrderByChapter(numbInt, countInt, id);
+                    
                 }
 
 
                 chapter.NumbChapter = numbInt;
                 chapter.CreativeId = id;
                 _creativesRepository.AddChapter(chapter);
+                string IndexPath = Server.MapPath("~/Index");
+                CreativeIndexDefinition.CreateIndexChapter(chapter, IndexPath);
                 return RedirectToAction("Find", "Creative", new { id });
             }
             return View();
@@ -79,20 +82,10 @@ namespace Creatives.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Chapter chapter, string numb)
+        public ActionResult Edit(Chapter chapter)
         {
             if (ModelState.IsValid)
             {
-                
-                var numbInt = Convert.ToInt32(numb);
-
-                var countInt = _creativesRepository.GetChapterById(chapter.ChapterId).Creative.Chapter.Count();
-                if (numbInt != 0 && numbInt != chapter.NumbChapter)
-                {
-                    _creativesRepository.ChangeOrderByChapter(numbInt, chapter.NumbChapter, chapter.CreativeId);
-                    chapter.NumbChapter = numbInt;
-                }
-
                 _creativesRepository.ModifiedChapter(chapter);
                 return RedirectToAction("Find", "Creative", new { id = chapter.CreativeId });
             }

@@ -40,6 +40,12 @@ namespace Creatives.Controllers
             return View(creative);
 
         }
+        [HttpPost]
+        public ActionResult Find(int[] items,int id)
+        {
+            _creativesRepository.ChangeNumberChapter(items, id);
+            return RedirectToAction("Find", new{id});
+        }
 
         public ActionResult Edit(int id = 0)
         {
@@ -52,10 +58,16 @@ namespace Creatives.Controllers
             return View(creative);
         }
         [HttpPost]
-        public ActionResult Edit(Creative creative)
+        public ActionResult Edit(Creative creative,int id)
         {
-            _creativesRepository.AddTag(creative.Creativeid);
-            _creativesRepository.ModifiedCreatives(creative);
+            if (ModelState.IsValid)
+            {
+               
+                _creativesRepository.ModifiedCreatives(creative);
+                _creativesRepository.AddTag(creative.Creativeid);
+                return RedirectToAction("Find", new {id});
+
+            }
             return View();
         }
 
@@ -73,17 +85,8 @@ namespace Creatives.Controllers
                 creative.DateCreate = DateTime.Now;
                 creative.UserId = user.UserId;
                 AddCreative.Add(creative);
-                var indexLocation = new FileSystemIndexLocation(new DirectoryInfo(Server.MapPath("~/Index")));
-                var definition = new CreativeIndexDefinition();
-                var task = new EntityUpdateTask<Creative>(creative, definition, indexLocation);
-                task.IndexOptions.RecreateIndex = false;
-                task.IndexOptions.OptimizeIndex = true;
-                var indexWriter = new DirectoryIndexWriter(new DirectoryInfo(Server.MapPath("~/Index")), false);
-
-                using (var indexService = new IndexService(indexWriter))
-                {
-                    task.Execute(indexService);
-                }
+                string IndexPath = Server.MapPath("~/Index");
+                CreativeIndexDefinition.CreateIndexCreative(creative, IndexPath);
                 if (creative.Tagon != null)
                 {
                     _creativesRepository.AddTag(creative.Creativeid);

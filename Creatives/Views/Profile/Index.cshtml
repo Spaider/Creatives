@@ -1,0 +1,55 @@
+﻿@model Creatives.Models.User
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<fieldset>
+    <legend>User</legend>
+
+
+    <div class="display-field">
+        <p>Email:  @Html.DisplayFor(model => model.Email)</p> 
+    </div>
+
+
+    <div class="display-field">
+        <p>First Name:  @Html.DisplayFor(model => model.FirstName)</p> 
+    </div>
+
+
+    <div class="display-field">
+        <p>Last Name:  @Html.DisplayFor(model => model.LastName)</p> 
+    </div>
+
+
+    <div class="display-field">
+        <p>About:  @Html.DisplayFor(model => model.About)</p> 
+    </div>
+       <ul class="button-group">
+            <li><a href="~/Profile/Edit/@Model.UserId" class="button alert  ">Edit profile</a></li>
+            <li><a href="~/Creative/create/" class="button  ">Create new creative</a></li>
+
+        </ul>
+    
+</fieldset>
+@{
+    var a = Model.Creative.ToList();
+}
+@foreach (var item in a)
+{
+    <div class="row">
+        <div class="large-12 columns">
+            <article>
+                <h3><a href="~/Creative/Find/@item.Creativeid">@Html.DisplayFor(modelItem => item.Title)</a></h3>
+                <h6>Written by <a href="~/Profile/Users/@item.UserId">@Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)</a> @Html.DisplayFor(modelItem => item.DateCreate)</h6>
+                <p align="justify">@Html.DisplayFor(modelItem => item.About)</p>
+            </article>
+
+            <hr />
+        </div>
+    </div>
+
+}
+

@@ -24,10 +24,13 @@
 
         <label>Add Tags creative</label>
         <input id="Tagon" name="Tagon" type="text" value="" placeholder="#Asp#mvc,#itransition, #JavaScript #Database">
-         @Html.ValidationMessageFor(model => model.Tagon)
+        @Html.ValidationMessageFor(model => model.Tagon)
 
         <p>
-            <input class="button" type="submit" value="Create" />
+            <ul class="button-group">
+                <li><a href="~/Profile/" class="button alert ">Go to the profile</a></li>
+                <input class="button" type="submit" value="Create" />
+            </ul>
         </p>
     </form>
 }

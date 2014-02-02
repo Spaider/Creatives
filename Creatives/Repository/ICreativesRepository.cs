@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using Creatives.Models;
 
@@ -19,6 +22,8 @@ namespace Creatives.Repository
         void AddPictures(HttpPostedFileBase fileUpload,string path,int id,string title);
         List<Creative> GetTenLastCreatives();
         void ChangeOrderByChapter(int numbInt,int countInt,int id);
+        void ChangeNumberChapter(int[] items,int id);
+        IQueryable<User> AllIncluding(params Expression<Func<User, object>>[] includeProperties);
 
     }
 }
