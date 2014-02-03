@@ -1,0 +1,29 @@
+﻿@using Microsoft.Ajax.Utilities
+@model IEnumerable<Creatives.Models.Creative>
+
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="large-12 columns">
+            <article>
+                <h3><a href="~/Creative/read/@item.Creativeid">@Html.DisplayFor(modelItem => item.Title)</a></h3>
+                <h6>Written by <a href="~/Profile/Users/@item.UserId">@Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)</a> @Html.DisplayFor(modelItem => item.DateCreate)
+                    Tags:
+                    @{
+                        var a = item.Tag.ToList();
+                        foreach (var items in a)
+                        {
+                            <a href="~/Home/Tags/@items.TagId">#@items.Title</a>
+
+                        }
+                    }
+                </h6>
+                <p align="justify">@Html.DisplayFor(modelItem => item.About)</p>
+            </article>
+
+            <hr />
+        </div>
+    </div>
+
+}

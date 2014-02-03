@@ -178,17 +178,20 @@ namespace Creatives.Repository
                     }
                 }
             }
-        }
+       }
 
-        public IQueryable<User> AllIncluding(params Expression<Func<User, object>>[] includeProperties)
+        public List<Creative> GetAllCreatives()
         {
-            IQueryable<User> query = _db.User;
-            foreach (var includeProperty in includeProperties)
-            {
-                query = query.Include(includeProperty);
-            }
-            return query;
+            return _db.Creative.OrderByDescending(r=>r.DateCreate).ToList();
+        }
+
+        public List<Creative> GetAllCreativesWithTag(int id)
+        {
+            var tag = _db.Tag.Find(id);
+            return tag.Creative.ToList();
 
         }
+
+
     }
 }

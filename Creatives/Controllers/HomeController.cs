@@ -14,7 +14,7 @@ namespace Creatives.Controllers
     {
 
         private readonly ICreativesRepository _creativesRepository;
-        User curemtuser;
+      
 
         public HomeController(ICreativesRepository creativesRepository)
         {
@@ -25,23 +25,41 @@ namespace Creatives.Controllers
         {
             return View(_creativesRepository.GetTenLastCreatives());
         }
+
+        public ActionResult SearchResult()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Search(string searchText)
         {
             if (string.IsNullOrEmpty(searchText) || searchText == ":")
             {
-                searchText = "empty";
+                return RedirectToAction("SearchResult");
             }
-           //user = _creativesRepository.AllIncluding(user => user.Creative).FirstOrDefault(user => user.Email == User.Identity.Name);
-
+           
             string IndexPath = Server.MapPath("~/Index");
 
-            List<Creative> events = CreativeIndexDefinition.SearchCreatives(IndexPath, searchText, _creativesRepository);
+            List<Creative> creatives = CreativeIndexDefinition.SearchCreatives(IndexPath, searchText, _creativesRepository);
+            if (creatives.Count==0)
+            {
+                return RedirectToAction("SearchResult");
+            }
 
 
 
 
-            return View(events);
+            return View(creatives);
+        }
+
+        public ActionResult AllCreatives()
+        {
+            return View(_creativesRepository.GetAllCreatives());
+        }
+
+        public ActionResult Tags(int id = 0)
+        {
+            return View(_creativesRepository.GetAllCreativesWithTag(id));
         }
     }
 }

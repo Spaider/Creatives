@@ -23,7 +23,8 @@ namespace Creatives.Repository
         List<Creative> GetTenLastCreatives();
         void ChangeOrderByChapter(int numbInt,int countInt,int id);
         void ChangeNumberChapter(int[] items,int id);
-        IQueryable<User> AllIncluding(params Expression<Func<User, object>>[] includeProperties);
+        List<Creative> GetAllCreatives();
+        List<Creative> GetAllCreativesWithTag(int id);
 
     }
 }

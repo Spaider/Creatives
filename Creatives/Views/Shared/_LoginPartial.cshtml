@@ -1,14 +1,17 @@
 ﻿@if (Request.IsAuthenticated)
 {
-    <a href="#" data-dropdown="drop" class="button  success dropdown">@User.Identity.Name</a><br>
-    <ul id="drop" data-dropdown-content class="f-dropdown">
-        <li><a href="~/Profile/">My profile</a></li>
-        <li><a href="~/Account/Manage">Change password</a></li>
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-        {
-            @Html.AntiForgeryToken()
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">LogOff</a></li>
-        }
+    <ul class="button-group">
+        <a href="#" data-dropdown="drop" class="button  success dropdown">@User.Identity.Name</a>
+        <li><a href="~/Creative/Create" class="button alert  ">Add creative</a></li>
+        <ul id="drop" data-dropdown-content class="f-dropdown">
+            <li><a href="~/Profile/">My profile</a></li>
+            <li><a href="~/Account/Manage">Change password</a></li>
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">LogOff</a></li>
+            }
+        </ul>
     </ul>
 }
 else

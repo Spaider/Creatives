@@ -33,39 +33,59 @@ namespace Creatives.Controllers
         {
             var user = _creativesRepository.GetUserByName(User.Identity.Name);
             var creative = _creativesRepository.GetCreativeById(id);
-            if (creative.UserId != user.UserId)
+            try
             {
+                if (creative.UserId != user.UserId)
+                {
+                    return HttpNotFound();
+                }
+            }
+            catch (Exception)
+            {
+
                 return HttpNotFound();
             }
+          
             return View(creative);
 
         }
         [HttpPost]
-        public ActionResult Find(int[] items,int id)
+        public ActionResult Find(int[] items, int id)
         {
             _creativesRepository.ChangeNumberChapter(items, id);
-            return RedirectToAction("Find", new{id});
+            return RedirectToAction("Find", new { id });
         }
 
         public ActionResult Edit(int id = 0)
         {
             var user = _creativesRepository.GetUserByName(User.Identity.Name);
             var creative = _creativesRepository.GetCreativeById(id);
-            if (creative.UserId != user.UserId)
+            try
             {
-                return HttpNotFound();
+                if (creative.UserId != user.UserId)
+                {
+                    return HttpNotFound();
+                }
+
             }
+            catch (Exception)
+            {
+                
+               return HttpNotFound();
+                
+            }
+            
             return View(creative);
         }
         [HttpPost]
-        public ActionResult Edit(Creative creative,int id)
+        public ActionResult Edit(Creative creative, int id)
         {
             if (ModelState.IsValid)
             {
-               
+
                 _creativesRepository.ModifiedCreatives(creative);
                 _creativesRepository.AddTag(creative.Creativeid);
-                return RedirectToAction("Find", new {id});
+                return RedirectToAction("Find", new { id });
 
             }
             return View();

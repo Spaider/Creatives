@@ -5,12 +5,14 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>@ViewBag.Title - Welcome to Foundation</title>
+    <title>@ViewBag.Title - Creatives</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
+    @Styles.Render("~/Content/themes/base/css")
     @Styles.Render("~/foundation/css")
+   
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/foundation")
     <script>
         $(document).foundation();
@@ -26,17 +28,15 @@
             <div class="nav-bar right">
 
                 <ul class="button-group">
-
-                    <li><a href="#" class="button">Link 1</a></li>
-                    <li><a href="#" class="button">Link 2</a></li>
-
+                    <li><a href="~/Home/" class="button ">Home</a></li>
+                    <li><a href="~/Home/AllCreatives" class="button">All Creatives</a></li>
                     @Html.Partial("_LoginPartial")
-
                 </ul>
 
                 @Html.Partial("_Search")
             </div>
-            <h1>Blog <small>This is my blog. It's awesome.</small></h1>
+            
+            <h1><a href="~/Home/">Creatives</a><br/><small>Collection of short stories.</small></h1>
             <hr />
         </div>
     </div>
@@ -52,18 +52,18 @@
     <div class="row">
         <footer>
             <div class="twelve columns">
-                <p>&copy; 2014 Все права защищены</p>
+                <p>&copy; 2014 All Rights Reserved.</p>
             </div>
         </footer>
     </div>
 
-
+    @Styles.Render("~/Content/themes/base/css")
     @Styles.Render("~/foundation/css")
 
-    
+
     @Scripts.Render("~/bundles/foundation")
     <script>
         $(document).foundation();
     </script>
-    </body>
+</body>
 </html>

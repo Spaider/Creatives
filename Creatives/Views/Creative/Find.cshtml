@@ -1,15 +1,6 @@
 ﻿@model Creatives.Models.Creative
-<div class="row">
-    <div class="large-12 columns">
-        <article>
-            <h3><a href="#">@Html.DisplayFor(model => model.Title)</a></h3>
-            <h6>Written by <a href="#">@Html.DisplayFor(model => model.User.FirstName) @Html.DisplayFor(model => model.User.LastName)</a> @Html.DisplayFor(model => model.DateCreate)</h6>
-            <p>@Html.DisplayFor(model => model.About)</p>
-        </article>
+@Html.Partial("_PartialThisCreative")
 
-        <hr />
-    </div>
-</div>
 
 
 <div class="large-12 columns">
@@ -24,7 +15,8 @@
 
     </div>
 </div>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+
 <script>
     $(function () {
         $("#sortable").sortable({
@@ -32,7 +24,7 @@
             update: function (event, ui) {
                 $.ajax({
                     url: '/Creative/Find/',
-                    data: {id:"@Model.Creativeid",items: $("#sortable").sortable('toArray') },
+                    data: { id: "@Model.Creativeid", items: $("#sortable").sortable('toArray') },
                     type: 'post',
                     traditional: true
                 });

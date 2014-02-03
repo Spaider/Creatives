@@ -21,10 +21,20 @@ namespace Creatives.Controllers
         {
             var user = _creativesRepository.GetUserByName(User.Identity.Name);
             var creative = _creativesRepository.GetCreativeById(id);
-            if (creative.UserId != user.UserId)
+            try
             {
+                if (creative.UserId != user.UserId)
+                {
+                    return HttpNotFound();
+                }
+
+            }
+            catch (Exception)
+            {
+
                 return HttpNotFound();
             }
+           
             var b = creative.Chapter.Count;
             ViewBag.count = b;
 

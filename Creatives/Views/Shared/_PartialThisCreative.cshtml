@@ -1,0 +1,22 @@
+﻿@model Creatives.Models.Creative
+<div class="row">
+    <div class="large-12 columns">
+        <article>
+            <h3 align="center"><a  href="~/Creative/read/@Model.Creativeid">@Html.DisplayFor(mode => mode.Title)</a></h3>
+            <h6>Written by <a href="~/Profile/Users/@Model.UserId">@Html.DisplayFor(mode => mode.User.FirstName) @Html.DisplayFor(mode => mode.User.LastName)</a> @Html.DisplayFor(mode => mode.DateCreate)
+                Tags:
+                    @{
+                        var a = Model.Tag.ToList();
+                        foreach (var items in a)
+                        {
+                        <a href="~/Home/Tags/@items.TagId">#@items.Title</a>
+
+                        }
+                    }
+            </h6>
+            <p align="justify"><b>@Html.DisplayFor(mode => mode.About)</b></p>
+        </article>
+
+        <hr />
+    </div>
+</div>
